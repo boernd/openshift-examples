@@ -1,0 +1,26 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'logstash' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+if [[ "$1" == "-h" ]]; then
+	# If the 'logstash' assemble script is executed with '-h' flag,
+	# print the usage.
+	exec /usr/libexec/s2i/usage
+fi
+
+echo "---> Installing application source... Building latest runtime image"
+
+cp -Rf /tmp/src/. ./
+if [[ -d ./pipeline ]]; then
+	cp -r pipeline/* ${LOGSTASH_HOME}/conf.d/
+fi
+
+if [[ -f ./plugins ]]; then
+	echo "---> Installing plugins..."
+	cat plugins | while read a; do ${LOGSTASH_HOME}/bin/logstash-plugin install $a; done
+fi
