@@ -1,0 +1,10 @@
+output {
+    if [@destination] == "elasticsearch" {
+        elasticsearch {
+            hosts => ["${ELASTICSEARCH_SERVICE_NAME:elasticsearch}:${ELASTICSEARCH_SERVICE_PORT:9200"]
+            template_overwrite => true
+            template_name => "log"
+            template => "${LOGSTASH_HOME}/templates/log.json"
+        }
+    }
+}

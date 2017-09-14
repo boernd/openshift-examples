@@ -16,11 +16,23 @@ fi
 echo "---> Installing application source... Building latest runtime image"
 
 cp -Rf /tmp/src/. ./
+if [[ -f ./logstash.yml ]]; then
+	cp logstash.yml ${LOGSTASH_HOME}/logstash.yml
+fi
+
+if [[ -f ./jvm.options ]]; then
+	cp jvm.options ${LOGSTASH_HOME}/jvm.options
+fi
+
 if [[ -d ./pipeline ]]; then
-	cp -r pipeline/* ${LOGSTASH_HOME}/conf.d/
+	cp -r pipeline/* ${LOGSTASH_HOME}/pipeline/
+fi
+
+if [[ -d ./templates ]]; then
+	cp -r templates/* ${LOGSTASH_HOME}/templates/
 fi
 
 if [[ -f ./plugins ]]; then
 	echo "---> Installing plugins..."
-	cat plugins | while read a; do ${LOGSTASH_HOME}/bin/logstash-plugin install $a; done
+	cat plugins | while read plugin; do ${LOGSTASH_HOME}/bin/logstash-plugin install ${plugin}; done
 fi

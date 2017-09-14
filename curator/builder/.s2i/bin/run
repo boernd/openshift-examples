@@ -6,4 +6,7 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-exec ${FILEBEAT_HOME}/filebeat -c ${FILEBEAT_HOME}/filebeat-${COMPONENT:default}.yml -e -strict.perms=false
+for action in ${CURATOR_HOME}/actions
+do
+    exec curator --config ${CURATOR_HOME}/config.yml ${CURATOR_HOME}/actions/${file}
+done

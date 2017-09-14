@@ -13,7 +13,8 @@ LABEL io.k8s.description="Filebeat Builder Image" \
 
 RUN \
   rpm --rebuilddb && yum clean all && \
-  mkdir -p ${FILEBEAT_HOME} \
+  mkdir -p ${FILEBEAT_HOME} ${FILEBEAT_HOME}/data && \
+  chmod a+w ${FILEBEAT_HOME}/data && \
   cd ${FILEBEAT_HOME} && \
   curl -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz && \
   tar zxvf filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz -C ${FILEBEAT_HOME} --strip-components=1 && \

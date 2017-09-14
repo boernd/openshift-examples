@@ -1,0 +1,9 @@
+output {
+    if [@destination] == "riemann" {
+        riemann {
+            host => "${RIEMANN_SERVICE_NAME:riemann}"
+            port => "${RIEMANN_SERVICE_PORT:5555}
+            map_fields => "true"
+        }
+    }
+}

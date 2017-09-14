@@ -14,7 +14,6 @@ fi
 echo "---> Installing application source... Building latest runtime image"
 
 cp -Rf /tmp/src/. ./
-if [[ -d ./config ]]; then
-	cp -r ./config/* ${FILEBEAT_HOME}
-    chmod 0644 ${FILEBEAT_HOME}/*.yml
+if [[ -f ./kibana.yml ]]; then
+	cp -r kibana.yml ${KIBANA_HOME}/config
 fi

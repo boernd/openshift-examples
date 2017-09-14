@@ -1,9 +1,10 @@
 #!/bin/bash -e
 #
+# S2I run script for the 'riemann' image.
 # The run script executes the server that runs your application.
 #
 # For more information see the documentation:
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-exec ${FILEBEAT_HOME}/filebeat -c ${FILEBEAT_HOME}/filebeat-${COMPONENT:default}.yml -e -strict.perms=false
+exec ${KIBANA_HOME}/bin/kibana 

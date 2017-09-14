@@ -16,7 +16,8 @@ LABEL io.k8s.description="Logstash Builder Image" \
 RUN \
   rpm --rebuilddb && yum clean all && \
   yum install -y tar java-${JAVA_VERSION}-openjdk openssl && \
-  mkdir -p ${LOGSTASH_HOME}/conf.d \
+  mkdir -p ${LOGSTASH_HOME}/pipeline ${LOGSTASH_HOME}/templates ${LOGSTASH_HOME}/logs && \
+  chmod a+w ${LOGSTASH_HOME}/logs && \
   cd ${LOGSTASH_HOME} && \
   curl -O https://artifacts.elastic.co/downloads/logstash/logstash-${LOGSTASH_VERSION}.tar.gz && \
   tar zxvf logstash-${LOGSTASH_VERSION}.tar.gz -C ${LOGSTASH_HOME} --strip-components=1 && \

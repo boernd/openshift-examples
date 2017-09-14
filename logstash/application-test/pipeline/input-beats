@@ -1,0 +1,6 @@
+input {
+    beats {
+        port => 5044
+        add_field => { "@destination" => "elasticsearch" }
+    }
+}

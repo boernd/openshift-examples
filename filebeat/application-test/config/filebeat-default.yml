@@ -1,0 +1,16 @@
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /var/log/messages
+  fields:
+    node_name: ${NODE_NAME:defaultNodeName}
+    pod_name: ${POD_NAME:defaultPodName}
+    pod_namespace: ${POD_NAMESPACE:defaultPodNamespace}
+    pod_ip: ${POD_IP:127.0.0.1}
+    pod_service_account: ${POD_SERVICE_ACCOUNT:defaultPodServiceAccount}
+output.file:
+  path: "/tmp"
+  filename: filebeat
+output.console:
+  codec.format:
+    string: '%{[message]}'
